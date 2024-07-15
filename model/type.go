@@ -14,6 +14,7 @@ type Gadget struct {
 }
 
 type Spesifikasi struct {
+	ID           primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
 	Prosesor     string   `bson:"prosesor,omitempty" json:"prosesor,omitempty"`
 	RAM          int      `bson:"ram,omitempty" json:"ram,omitempty"`
 	Storage      int      `bson:"storage,omitempty" json:"storage,omitempty"`
