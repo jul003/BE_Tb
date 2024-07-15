@@ -129,3 +129,16 @@ func DeleteGadgetID(_id primitive.ObjectID, db *mongo.Database, col string) erro
 
 	return nil
 }
+
+func GetGadgetByID(_id primitive.ObjectID, db *mongo.Database, col string) (gadgets model.Gadget, errs error) {
+	god := db.Collection(col)
+	filter := bson.M{"_id": _id}
+	err := god.FindOne(context.TODO(), filter).Decode(&gadgets)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return gadgets, fmt.Errorf("no data found for ID %s", _id)
+		}
+		return gadgets, fmt.Errorf("error retrieving data for ID %s: %s", _id, err.Error())
+	}
+	return gadgets, nil
+}
