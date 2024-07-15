@@ -32,7 +32,7 @@ func InsertOneDoc(db string, collection string, doc interface{}) (insertedID int
 
 func InsertGadget(db *mongo.Database, col string, nama string, merk string, harga float64, spesifikasi model.Spesifikasi, deskripsi string) (insertedID primitive.ObjectID, err error) {
 	gadgets := bson.M{
-		"name": nama,
+		"nama": nama,
 		"merk": merk,
 		"harga": harga,
 		"spesifiksasi": spesifikasi,
@@ -96,7 +96,7 @@ func UpdateGadget(db *mongo.Database, col string, id primitive.ObjectID, nama st
 	filter := bson.M{"_id": id}
 	update := bson.M{
 		"$set": bson.M{
-		"name": nama,
+		"nama": nama,
 		"merk": merk,
 		"harga": harga,
 		"spesifiksasi": spesifikasi,
