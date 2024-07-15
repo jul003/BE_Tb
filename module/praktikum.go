@@ -35,7 +35,7 @@ func InsertGadget(db *mongo.Database, col string, nama string, merk string, harg
 		"nama": nama,
 		"merk": merk,
 		"harga": harga,
-		"spesifiksasi": spesifikasi,
+		"spesifikasi": spesifikasi,
 		"deskripsi": deskripsi,
 	}
 	result, err :=db.Collection(col).InsertOne(context.Background(), gadgets)
@@ -99,7 +99,7 @@ func UpdateGadget(db *mongo.Database, col string, id primitive.ObjectID, nama st
 		"nama": nama,
 		"merk": merk,
 		"harga": harga,
-		"spesifiksasi": spesifikasi,
+		"spesifikasi": spesifikasi,
 		"deskripsi": deskripsi,
 		},
 	}
