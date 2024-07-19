@@ -18,11 +18,6 @@ type Spesifikasi struct {
 	Prosesor     string   `bson:"prosesor,omitempty" json:"prosesor,omitempty"`
 	RAM          int      `bson:"ram,omitempty" json:"ram,omitempty"`
 	Storage      int      `bson:"storage,omitempty" json:"storage,omitempty"`
-	Kamera       string   `bson:"kamera,omitempty" json:"kamera,omitempty"`
-	Baterai      string   `bson:"baterai,omitempty" json:"baterai,omitempty"`
-	OS           string   `bson:"os,omitempty" json:"os,omitempty"`
-	Layar        string   `bson:"layar,omitempty" json:"layar,omitempty"`
-	FiturLainnya []string `bson:"fitur_lainnya,omitempty" json:"fitur_lainnya,omitempty"`
 }
 
 type Review struct {

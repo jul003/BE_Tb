@@ -15,11 +15,6 @@ func TestInsertGadget(t *testing.T) {
 		Prosesor:     "Snapdragon 750",
 		RAM:          8,
 		Storage:      128,
-		Kamera:       "48MP + 8MP + 2MP + 2MP",
-		Baterai:      "4000mAh",
-		OS:           "Android 10",
-		Layar:        "6.4 inch AMOLED",
-		FiturLainnya: []string{"Fingerprint Sensor", "Face Unlock", "Fast Charging"},
 	}
 	deskripsi := "RAM OPPO Reno 4 adalah 8GB. Spesifikasi RAM 8GB tersebut tergolong besar dan sudah cukup untuk mendukung pemakaian multitasking sehari-hari tanpa hambatan."
 	insertedID, err := module.InsertGadget(module.MongoConn, "gadget2024", name, merk, harga, spesifikasi, deskripsi)
