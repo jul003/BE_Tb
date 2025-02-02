@@ -2,17 +2,17 @@ package module
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
-	"errors"
 	"time"
+
 	"github.com/jul003/BE_Tb/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
-
 
 func MongoConnect(dbname string) (db *mongo.Database) {
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(MongoString))
@@ -32,14 +32,14 @@ func InsertOneDoc(db string, collection string, doc interface{}) (insertedID int
 
 func InsertGadget(db *mongo.Database, col string, nama string, merk string, harga float64, spesifikasi model.Spesifikasi, deskripsi string) (insertedID primitive.ObjectID, err error) {
 	gadgets := bson.M{
-		"nama": nama,
-		"merk": merk,
-		"harga": harga,
+		"nama":        nama,
+		"merk":        merk,
+		"harga":       harga,
 		"spesifikasi": spesifikasi,
-		"deskripsi": deskripsi,
+		"deskripsi":   deskripsi,
 	}
-	result, err :=db.Collection(col).InsertOne(context.Background(), gadgets)
-	if err != nil{
+	result, err := db.Collection(col).InsertOne(context.Background(), gadgets)
+	if err != nil {
 		fmt.Printf("InsertGadget: %v\n", err)
 		return
 	}
@@ -47,30 +47,28 @@ func InsertGadget(db *mongo.Database, col string, nama string, merk string, harg
 	return insertedID, nil
 }
 
-
 func GetDataGadget(db *mongo.Database, col string) (data []model.Gadget) {
 	gadget := db.Collection(col)
 	filter := bson.M{}
 	cursor, err := gadget.Find(context.TODO(), filter)
-	if err != nil{
+	if err != nil {
 		fmt.Println("GetDataGadget: ", err)
 	}
 	err = cursor.All(context.TODO(), &data)
-	if err != nil{
+	if err != nil {
 		fmt.Println(err)
 	}
 	return
 }
 
-
-func InsertReview(db *mongo.Database, col string, rating int, review string ) (insertedID primitive.ObjectID, err error) {
+func InsertReview(db *mongo.Database, col string, rating int, review string) (insertedID primitive.ObjectID, err error) {
 	reviews := bson.M{
-		"rating": rating,
-		"review": review,
+		"rating":   rating,
+		"review":   review,
 		"datetime": primitive.NewDateTimeFromTime(time.Now().UTC()),
 	}
 	result, err := db.Collection(col).InsertOne(context.Background(), reviews)
-	if err != nil{
+	if err != nil {
 		fmt.Printf("InsertReview: %v\n", err)
 		return
 	}
@@ -82,11 +80,11 @@ func GetDataReview(db *mongo.Database, col string) (data []model.Review) {
 	reviews := db.Collection(col)
 	filter := bson.M{}
 	cursor, err := reviews.Find(context.TODO(), filter)
-	if err != nil{
+	if err != nil {
 		fmt.Println("GetDataReview: ", err)
 	}
 	err = cursor.All(context.TODO(), &data)
-	if err != nil{
+	if err != nil {
 		fmt.Println(err)
 	}
 	return
@@ -96,11 +94,11 @@ func UpdateGadget(db *mongo.Database, col string, id primitive.ObjectID, nama st
 	filter := bson.M{"_id": id}
 	update := bson.M{
 		"$set": bson.M{
-		"nama": nama,
-		"merk": merk,
-		"harga": harga,
-		"spesifikasi": spesifikasi,
-		"deskripsi": deskripsi,
+			"nama":        nama,
+			"merk":        merk,
+			"harga":       harga,
+			"spesifikasi": spesifikasi,
+			"deskripsi":   deskripsi,
 		},
 	}
 	result, err := db.Collection(col).UpdateOne(context.Background(), filter, update)

@@ -8,6 +8,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/securecookie"
+	"github.com/rs/cors"
 )
 
 var csrfTokenKey = []byte("secret-key-for-csrf-token") // Secret key untuk token CSRF
@@ -16,11 +17,18 @@ var s = securecookie.New(csrfTokenKey, nil)
 func main() {
 	rand.Seed(time.Now().UnixNano())
 
+	// Initialize router
 	r := mux.NewRouter()
+
+	// Define API endpoints
 	r.HandleFunc("/generate-csrf-token", generateCSRFTokenHandler).Methods("GET")
 	r.HandleFunc("/submit-form", submitFormHandler).Methods("POST")
 
-	http.ListenAndServe(":8080", r)
+	// Enable CORS for cross-origin requests
+	handler := cors.Default().Handler(r)
+
+	// Start the server
+	http.ListenAndServe(":8080", handler)
 }
 
 // Fungsi untuk mengenerate CSRF token
