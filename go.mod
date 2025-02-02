@@ -4,6 +4,8 @@ go 1.22.1
 
 require (
 	github.com/aiteung/atdb v0.1.7
+	github.com/gorilla/mux v1.8.1
+	github.com/gorilla/securecookie v1.1.2
 	go.mongodb.org/mongo-driver v1.16.0
 )
 
